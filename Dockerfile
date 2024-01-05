@@ -1,14 +1,25 @@
-# syntax=docker/dockerfile:1
+name: Python application
 
-FROM python:3.8-slim-buster
+on:
+  push:
+    branches: [ main]
 
-WORKDIR /app
-
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
-
-COPY . .
-
-EXPOSE 5000
-
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.8"
+    - name: Display Python version
+      run: python -c "import sys; print(sys.version)"
+    - name: Build & push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: pepsicoc@naver.com/github-actions-app
+        tags: v3, latest
+        registry: docker.io
+        username: pepsicoc@naver.com
+        password: dckr_pat_AgzHdQ42MZiqcFR3ntOH2kOufew
