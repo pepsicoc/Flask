@@ -22,4 +22,4 @@ jobs:
         tags: v3, latest
         registry: docker.io
         username: pepsicoc@naver.com
-        password: minion0923!
+        password: dckr_pat_AgzHdQ42MZiqcFR3ntOH2kOufew
